@@ -4,6 +4,9 @@ import org.apache.commons.mail.DefaultAuthenticator
 import org.apache.commons.mail.HtmlEmail
 import java.net.URL
 
+/**
+ * Class level comment woohoo
+ */
 class Email {
 
     private var senderEmail : String

@@ -1,5 +1,6 @@
 # Hangman-Kotlin
 Simple implementation of the classic game Hangman, in Kotlin
+This was my introduction project to Kotlin!
 
 ## Implementation
 Program reads text file - each line contains one word<br>

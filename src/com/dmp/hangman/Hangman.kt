@@ -35,6 +35,9 @@ fun main(args: Array<String>) {
 
     // method so we can call it anywhere and restart the game
     initializeGame()
+
+    // game has completely ended
+    println("\nHave a nice day :)")
 }
 
 /**
@@ -42,6 +45,13 @@ fun main(args: Array<String>) {
  * first time the game is ran or any time after that.
  */
 fun initializeGame() {
+
+    // reinitialize variables (useful in the case the user restarts game at end)
+    playing = true
+    wordToGuess = ""
+    remainingLives = 0
+    guessedCharacterList.clear()
+
     // gather potential words
     readWordFile()
 
@@ -80,12 +90,27 @@ fun playGame() {
 
 fun printWinnerMessage() {
     println(ANSI_CYAN + "You won!" + ANSI_RESET)
-    val email = Email("developer.dmp@gmail.com", "shoot4thestars", "Hello $userName,\n\nYou won Kotlin-Hangman!!")
+    val email = Email(
+            "developer.dmp@gmail.com",
+            "shoot4thestars",
+            "Hello $userName,\n\nYou won Kotlin-Hangman!!")
     email.generateEmail()
 }
 
+/**
+ * The user has lost the game, notify them and prompt
+ * for them to play again.
+ */
 fun printLoserMessage() {
-    println(ANSI_RED + "You lost!" + ANSI_RESET)
+    print(ANSI_RED + "You lost!" +
+            "\n\nThe word you were looking for was: [$wordToGuess]" +
+            "\n\nWould you like to play again? (y/n): " + ANSI_RESET)
+
+    // wait for user response, act if necessary
+    if (readLine() == "y") {
+        println("Good choice, $userName!  Best of luck this time.")
+        initializeGame()
+    }
 }
 
 /**
@@ -110,12 +135,24 @@ fun checkGameOver() {
 /**
  * Method to capture the user's input and process
  * their guessed letter.
- *
- * TODO error handling when more than one character is input
  */
 fun promptGuess() {
-    print(ANSI_BLUE+"> "+ ANSI_RESET)
-    val letter = readLine()!!.toLowerCase().single()
+    var letter : Char
+    // loop until we have valid input, then proceed
+    do {
+        print(ANSI_BLUE+"> "+ ANSI_RESET)
+
+        // capture user input
+        val input = readLine()!!.toLowerCase()
+
+        // validate it
+        letter = when {
+            input.length == 1 -> input.single()
+            else -> '='
+        }
+    } while (!letter.isLetter())
+
+    // process guessed letter
     if (guessedCharacterList.contains(letter)) {
         // todo captured duplicate guess
     } else {
@@ -181,20 +218,17 @@ fun determineHit(c: Char) : Char {
 /**
  * Method to prompt the user with a difficulty menu
  * and capture their response.
- *
- * TODO error handling on non 1,2,3 input
  */
 fun obtainDifficulty() {
 
     var diff: String
 
+    // loop until we get valid input, then proceed
     do {
-        //printSeparator(true, false, '#')
         print("\nSelect Difficulty" +
                 ANSI_GREEN  + "\n1. Easy" + ANSI_RESET +
                 ANSI_YELLOW + "\n2. Medium" + ANSI_RESET +
                 ANSI_RED    + "\n3. Hard" + ANSI_RESET)
-        //printSeparator(true, true, '#')
         print(ANSI_BLUE+"\n> "+ ANSI_RESET)
 
         diff = readLine()!!.trim()

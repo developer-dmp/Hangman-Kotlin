@@ -13,3 +13,8 @@ At game end, notify the user if they won or lost<br>
 Adding email component at the game end<br>
 Make word file more robust so there could be a category for each word<br>
 Enhanced GUI
+
+## NOTE
+The game is currently command line, however it does have coloring in the terminal.
+
+Enjoy :)

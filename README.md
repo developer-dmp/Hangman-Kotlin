@@ -1,5 +1,5 @@
 # Hangman-Kotlin
-Simple implementation of the classic game Hangman, in Kotlin
+Simple implementation of the classic game Hangman, in Kotlin<br>
 This was my introduction project to Kotlin!
 
 ## Implementation

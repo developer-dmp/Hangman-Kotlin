@@ -14,6 +14,7 @@ var userName : String? = null
 var playing = true
 var won = false
 
+// fancy variables to print special characters to the terminal for coloring
 val ANSI_RESET = "\u001B[0m"
 val ANSI_RED = "\u001B[31m"
 val ANSI_BLUE = "\u001B[34m"
